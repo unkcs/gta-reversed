@@ -1,0 +1,23 @@
+name: Update Fork
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Atualizar fork
+        run: |
+          git config --global user.name "unkcs"
+          git config --global user.email "unkcstv@gmail.com"
+          git remote add upstream https://github.com/gta-reversed/gta-reversed.git
+          git fetch upstream
+          git checkout master
+          git merge upstream/master --no-edit
+          git push
